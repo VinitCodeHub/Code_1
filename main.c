@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "CALCULATOR.H"
-//this code is for simple calculator
+//this code is for simple calculator by karthik
 int main() 
 {
     int choice, a, b;
