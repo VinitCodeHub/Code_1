@@ -18,22 +18,24 @@ jobs:
 
     - name: Run executable with input and timeout
       run: echo -e "5\n3\n+" | timeout 10 ./calculator
-    - name: Upload a Build Artifact
+
+    - name: Upload Build Artifact
       uses: actions/upload-artifact@v4.6.0
       with:
-    # Artifact name
-       name: Upload
-    # A file, directory or wildcard pattern that describes what to upload
-       path: ${{github.workplace}}
+        name: calculator-artifact  # Artifact name
+        path: ./calculator         # Upload the compiled executable
+
   test:
-       runs-on: ubuntu-latest
-       needs: build
-       steps:
-       - uses: actions/checkout@v4
+    runs-on: ubuntu-latest
+    needs: build
 
-       - name: Compile C files
-         run: gcc main.c add.c sub.c mul.c div.c -o calculator
+    steps:
+    - uses: actions/checkout@v4
 
-       - name: Run executable with input and timeout
-         run: echo -e "5\n3\n+" | timeout 10 ./calculator
-        
+    - name: Download Build Artifact
+      uses: actions/download-artifact@v4.0.0
+      with:
+        name: calculator-artifact
+
+    - name: Run executable with input and timeout
+      run: echo -e "5\n3\n+" | timeout 10 ./calculator
