@@ -16,5 +16,5 @@ jobs:
     - name: Compile C files
       run: gcc main.c add.c sub.c mul.c div.c -o calculator
 
-    - name: Run executable
-      run: ./calculator
+    - name: Run executable with input and timeout
+      run: echo -e "5\n3\n+" | timeout 10 ./calculator
